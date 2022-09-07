@@ -1,0 +1,109 @@
+#hotel Management System
+import mysql.connector as ms
+mydb=ms.connect(host="abir",user="root",password="1234",database="kleinsberg")
+mycur=mydb.cursor()
+
+def manager_task():
+    print("Welcome manager! Continue with your tasks")
+    print("")
+    print("1. Meat updating")
+    print("2. Vegetable updating")
+    print("3. Rice updating")
+    print("4. Flour updating")
+    print("5. Logout")
+    m_choice=int(input("Enter your choice="))
+
+    if(m_choice==1):
+        meat_type=input("Enter meat's type=")
+        quantity=input("Enter quantity(in kg)=")
+        vals=(meat_type,quantity)
+        mycur.execute("""INSERT INTO MEAT(MEAT_TYPE,QUANTITY) VALUES (%s,%s)""",vals)
+        mydb.commit()
+        print(meat_type+" added recently.")
+        
+    elif(m_choice==2):
+        vegetables_type=input("Enter type of vegetable=")
+        quantity=input("Enter quantity of vegetables(in kg)=")
+        vals=(vegetables_type,quantity)
+        mycur.execute("""INSERT INTO VEGETABLES(VEGETABLES_TYPE,QUANTITY) VALUES (%s,%s)""",vals)
+        mydb.commit()
+        print(vegetables_type+" added recently")
+
+    elif(m_choice==3):
+        rice_name=input("Enter name of rice=")
+        quantity=input("Enter quantity(in kg)=")
+        vals=(rice_name,quantity)
+        mycur.execute("""INSERT INTO RICE(RICE_NAME,QUANTITY) VALUES (%s,%s)""",vals)
+        mydb.commit()
+        print(rice_name+" added recently.")
+
+    elif(m_choice==4):
+        flour_name=input("Enter fllour's name=")
+        quantity=input("Enter quantity(in kg)=")
+        vals=(flour_name,quantity)
+        mycur.execute("""INSERT INTO FLOUR(FLOUR_NAME,QUANTITY) VALUES (%s,%s)""",vals)
+        mydb.commit()
+        print(flour_name+" added recently")
+
+    else:
+        print("Data exploited")
+        
+def manager():
+    username=input("Enter your username=")
+    password=input("Enter your password=")
+    if(username=='managerkb'):
+        if(password=='managerkb1234'):
+            manager_task()
+        else:
+            print("Invalid Credentials")
+    else:
+        print("Login Unsuccessful!")
+def drawer_task():
+    print("Welcome Drawer! Continue with your tasks")
+    print("")
+    print("1. To do tasks")
+    print("2. Logout")
+    drawer_choice=int(input("Enter choice of drawer="))
+    if(drawer_choice==1):
+        qty1=input("Enter 1st item=")
+        qty2=input("Entr 2nd item=")
+        qty3=input("Enter 3rd item=")
+        qty4=input("Enter 4th item=")
+        qty5=input("Enter 5th item=")
+        total=input("Enter total=")
+        vals=(qty1,qty2,qty3,qty4,qty5,total)
+        mycur.execute("""INSERT INTO MARKETED(QTY1,QTY2,QTY3,QTY4,QTY5,TOTAL) VALUES (%s,%s,%s,%s,%s.,%s)""",vals)
+        mydb.commit()
+        print("Bill is ready")
+        print("Total is "+total)
+
+    else:
+        print("Data exploited")
+        
+def drawer():
+    username=input("Enter your username=")
+    password=input("Enter your password=")
+    if(username=='drawerkb'):
+        if(password=='drawerkb1234'):
+            drawer_task()
+        else:
+            print("Invalid Credentials")
+    else:
+        print("Login Unsuccessful")
+        
+def main():
+    while 1:
+        print("******************************WELCOME TO KLEINSBERG'S MALL*******************************")
+        print("")
+        print("1. Login as a Manager")
+        print("2. Login as a Drawer")
+        print("3. Logout")
+        print("")
+        user_choice=int(input("Enter your choice="))
+        if(user_choice==1):
+            manager()
+        elif(user_choice==2):
+            drawer()
+        else:
+            print("Good Bye")
+main()
